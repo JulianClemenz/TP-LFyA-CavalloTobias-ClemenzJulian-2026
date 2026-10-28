@@ -11,7 +11,7 @@ class FuncionInfo:
     nombre: str
     archivo: str
     linea: int
-    nodo: ast.AST
+    nodo: ast.AST #Almacena el metodo en forma de arbol para poder analizarlo en etapas posteriores.
 
     def identificador(self) -> str:
         """Devuelve una identificación con formato 'archivo:nombre'."""
@@ -82,4 +82,3 @@ if __name__ == "__main__":
         print(f"{f.identificador()} (línea {f.linea})")
 
     print(f"\nTotal de funciones encontradas: {len(funciones)}")
-
