@@ -18,7 +18,7 @@ class NormalizadorAST(ast.NodeTransformer):
             numero = len(self.variables) + 1
             self.variables[nombre] = f"VAR{numero}"
         return self.variables[nombre]
-
+ 
     def _normalizar_funcion(self, nodo: ast.FunctionDef | ast.AsyncFunctionDef) -> ast.AST:
         """Cambia el nombre de la funcion, saca el docstring y sigue con los hijos."""
         # El nombre de la funcion no debe influir en la comparacion
@@ -77,15 +77,15 @@ class NormalizadorAST(ast.NodeTransformer):
         nodo.value = "LIT"
         return nodo
 
-
+#1) punto de entrada 
 def normalizar(nodo: ast.AST) -> ast.AST:
     """Devuelve una copia normalizada del arbol de una funcion, sin tocar el original."""
-    copia = copy.deepcopy(nodo)
+    copia = copy.deepcopy(nodo) # genera una copia para no modificar el original
     # Un normalizador nuevo por funcion, asi los VAR empiezan de 1
     normalizador = NormalizadorAST()
-    copia = normalizador.visit(copia)
-    ast.fix_missing_locations(copia)
-    return copia
+    copia = normalizador.visit(copia) # dispara el recorrido y normalizacion
+    ast.fix_missing_locations(copia) # python recalcula nro de lineas y columnas
+    return copia # arbol normalizado
 
 
 if __name__ == "__main__":
